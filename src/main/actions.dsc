@@ -2,6 +2,11 @@ mortal_actions:
   type: world
   debug: false
   events:
+    after player left clicks block flagged:!mortal.gripping:
+    - inject mortal_find_dying_player
+    # Grip if sneaking
+    - if <player.is_sneaking>:
+      - inject mortal_grip
     after player right clicks block flagged:!mortal.reviving:
     # Block looting/reviving if the player is the one dying
     - if <player.has_flag[mortal.dying]>:
@@ -34,3 +39,5 @@ mortal_cancel_state:
     - determine cancelled
     on player steps on block flagged:mortal.reviving:
     - flag <player> mortal.reviving:!
+    on player steps on block flagged:mortal.gripping:
+    - flag <player> mortal.gripping:!
